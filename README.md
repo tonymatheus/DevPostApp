@@ -4,4 +4,6 @@ App Feito em React-native com a intenção de ser uma Rede social de Desenvolved
 
 ### Tecnologias Utilizadas
 
--[x] React-Native -[x] Javascript
+- [x] React-Native
+- [x] Javascript
+- [x] Firebase
