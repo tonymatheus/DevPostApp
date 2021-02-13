@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -53,13 +53,13 @@ export const Button = styled.TouchableOpacity`
   border-radius: 10px;
 `;
 
-export const SignupButton = styled.TouchableOpacity`
+export const SignUpButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   width: 100%;
   margin-top: 8px;
 `;
-export const SignupText = styled.Text`
+export const SignUpText = styled.Text`
   color: #ddd;
   font-weight: 600;
   font-size: 18px;
