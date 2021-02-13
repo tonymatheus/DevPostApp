@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {View, Text, ActivityIndicator} from 'react-native';
+import {AuthContext} from '../../contexts/auth';
+
 import {
   Container,
   ContainerInput,
@@ -7,11 +9,12 @@ import {
   Title,
   Button,
   ButtonText,
-  SignupButton,
-  SignupText,
+  SignUpButton,
+  SignUpText,
 } from './styles';
 
 export default function Login() {
+  const {signIn, signUp, loadingAuth} = useContext(AuthContext);
   const [login, setLogin] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,92 +22,99 @@ export default function Login() {
 
   function toggleLogin() {
     setLogin(!login);
+    setName('');
     setEmail('');
     setPassword('');
-    setName('');
   }
 
   function handleLogin() {
     if (email === '' || password === '') {
-      console.log('Preencha todos os dados');
+      alert('Preencha todos os campos!');
       return;
     }
-    alert('Logado');
+
+    signIn(email, password);
   }
 
   function handleSignUp() {
     if (name === '' || email === '' || password === '') {
-      console.log('Preencha todos os dados');
+      alert('Preencha todos os campos!');
       return;
     }
-    alert('Cadastrado com sucesso');
+    //cadastando user
+    signUp(email, password, name);
   }
 
   if (login) {
     return (
       <Container>
         <Title>
-          Dev<Text style={{color: '#e52246'}}>Post</Text>
+          Dev
+          <Text style={{color: '#e52246'}}>Post</Text>
         </Title>
+
         <Input
-          placeholder="Email@email.com"
+          placeholder="email@email.com"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          autocapitalized="none"
-          autocorrect={false}
         />
         <Input
-          placeholder="senha"
+          placeholder="******"
+          secureTextEntry={true}
           value={password}
-          onChangeText={({text}) => setPassword(text)}
-          autocapitalized="none"
-          autocorrect={false}
-          secureTextEntry={true}>
-          <Text />
-        </Input>
+          onChangeText={(text) => setPassword(text)}
+        />
+
         <Button onPress={handleLogin}>
-          <ButtonText>Acessar</ButtonText>
+          {loadingAuth ? (
+            <ActivityIndicator size={20} color="#fff" />
+          ) : (
+            <ButtonText>Acessar</ButtonText>
+          )}
         </Button>
-        <SignupButton onPress={toggleLogin}>
-          <SignupText>criar uma conta</SignupText>
-        </SignupButton>
+
+        <SignUpButton onPress={() => toggleLogin()}>
+          <SignUpText>Criar uma conta.</SignUpText>
+        </SignUpButton>
       </Container>
     );
   }
+
   return (
     <Container>
       <Title>
-        Dev<Text style={{color: '#e52246'}}>Post</Text>
+        Dev
+        <Text style={{color: '#e52246'}}>Post</Text>
       </Title>
+
       <Input
         placeholder="Nome"
         value={name}
         onChangeText={(text) => setName(text)}
-        autocapitalized="none"
-        autocorrect={false}
       />
       <Input
-        placeholder="email"
+        placeholder="email@email.com"
         value={email}
         onChangeText={(text) => setEmail(text)}
-        autocapitalized="none"
-        autocorrect={false}
       />
       <Input
-        placeholder="senha"
+        placeholder="******"
+        secureTextEntry={true}
         value={password}
-        onChangeText={({text}) => setPassword(text)}
-        autocapitalized="none"
-        autocorrect={false}
-        secureTextEntry={true}>
-        <Text />
-      </Input>
+        onChangeText={(text) => setPassword(text)}
+      />
+
       <Button onPress={handleSignUp}>
-        <ButtonText>Cadastrar</ButtonText>
+        {loadingAuth ? (
+          <ActivityIndicator size={20} color="#fff" />
+        ) : (
+          <ButtonText>Cadastrar</ButtonText>
+        )}
       </Button>
-      <SignupButton onPress={toggleLogin}>
-        <SignupText>já tenho uma conta</SignupText>
-      </SignupButton>
+
+      <SignUpButton onPress={() => toggleLogin()}>
+        <SignUpText>Já tenho uma conta.</SignUpText>
+      </SignUpButton>
     </Container>
   );
 }
