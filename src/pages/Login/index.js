@@ -1,10 +1,9 @@
 import React, {useState, useContext} from 'react';
-import {View, Text, ActivityIndicator} from 'react-native';
+import {Text, ActivityIndicator} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 
 import {
   Container,
-  ContainerInput,
   Input,
   Title,
   Button,
@@ -48,7 +47,7 @@ export default function Login() {
   if (login) {
     return (
       <Container>
-        <Title>
+        <Title animation="bounceInUp">
           Dev
           <Text style={{color: '#e52246'}}>Post</Text>
         </Title>
