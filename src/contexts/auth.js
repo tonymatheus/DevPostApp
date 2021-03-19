@@ -10,6 +10,7 @@ function AuthProvider({children}) {
   const [loading, setLoading] = useState(true);
   const [loadingAuth, setLoadingAuth] = useState(false);
 
+  //Método para manter o usuário caso ele esteja logado
   useEffect(() => {
     async function loadStorage() {
       const storageUser = await AsyncStorage.getItem('devApp');
