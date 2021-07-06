@@ -48,11 +48,11 @@ export default function NewPost() {
       .then(() => {
         setPost('');
         console.log('POST CRIADO COM SUCESSO');
-        navigation.navigate('Home');
       })
       .catch((error) => {
         console.log(error);
       });
+    navigation.goBack();
   }
 
   return (
